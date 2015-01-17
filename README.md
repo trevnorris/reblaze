@@ -33,11 +33,11 @@ function Matrix(rows, cols) {
 // This will look funky due to the template convention.
 function sumCols() {
   var sum = [];
-  for (var i = 0; i < (((COLS))); i++) {
+  for (var i = 0; i < ((COLS)); i++) {
     sum[i] = 0;
   }
-  for (var i = 0; i < (((COLS))) * (((ROWS))); i++) {
-    sum[i % (((COLS)))] += this[i];
+  for (var i = 0; i < ((COLS)) * ((ROWS)); i++) {
+    sum[i % ((COLS))] += this[i];
   }
   return sum;
 }
@@ -65,7 +65,7 @@ It will also automatically take care of object properties as well. For example:
 
 ```javascript
 function runMe(foo) {
-  return foo[(((BAR)))];
+  return foo[((BAR))];
 }
 
 var fn = reblaze({ BAR: 'bar' }, runMe);

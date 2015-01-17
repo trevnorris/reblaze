@@ -23,11 +23,11 @@ Matrix.prototype.sumCols2 = sumCols;
 
 function sumCols() {
   var sum = [];
-  for (var i = 0; i < (((this._cols))); i++) {
+  for (var i = 0; i < ((this._cols)); i++) {
     sum[i] = 0;
   }
-  for (var i = 0; i < (((this._cols))) * (((this._rows))); i++) {
-    sum[i % (((this._cols)))] += this[i];
+  for (var i = 0; i < ((this._cols)) * ((this._rows)); i++) {
+    sum[i % ((this._cols))] += this[i];
   }
   return sum;
 }
