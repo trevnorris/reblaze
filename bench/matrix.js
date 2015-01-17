@@ -1,60 +1,54 @@
 var smalloc = require('smalloc');
 var alloc = smalloc.alloc;
 var reblaze = require('../lib/core.js');
-
-var ITER = 1e6;
+var ROWS = (process.argv[2] >>> 0) || 19;
+var COLS = (process.argv[3] >>> 0) || 23;
+var ITER = (process.argv[4] >>> 0) || 1e6;
 
 
 function Matrix(rows, cols) {
   this._rows = rows >>> 0;
   this._cols = cols >>> 0;
-  this.sumCols = reblaze({ COLS: this._cols, ROWS: this._rows }, sumCols);
+  this.sumCols = reblaze({
+    'this._cols': this._cols,
+    'this._rows': this._rows
+  }, sumCols);
 
   alloc(this._rows * this._cols, this, smalloc.Types.Uint32);
 }
 
 
-Matrix.prototype.sumCols2 = function sumCols2() {
-  var sum = [];
-  for (var i = 0; i < this._cols; i++) {
-    sum[i] = 0;
-  }
-  for (var i = 0; i < this._cols * this._rows; i++) {
-    sum[i % this._cols] += this[i];
-  }
-  return sum;
-}
+Matrix.prototype.sumCols2 = sumCols;
 
 
 function sumCols() {
   var sum = [];
-  for (var i = 0; i < (((COLS))); i++) {
+  for (var i = 0; i < (((this._cols))); i++) {
     sum[i] = 0;
   }
-  for (var i = 0; i < (((COLS))) * (((ROWS))); i++) {
-    sum[i % (((COLS)))] += this[i];
+  for (var i = 0; i < (((this._cols))) * (((this._rows))); i++) {
+    sum[i % (((this._cols)))] += this[i];
   }
   return sum;
 }
 
 
-
-var m = new Matrix(19, 23);
+var m = new Matrix(ROWS, COLS);
 for (var i = 0; i < m._cols * m._rows; i++) {
   m[i] = i + 1;
 }
 
 var t = process.hrtime();
 for (var i = 0; i < ITER; i++) {
-  m.sumCols();
+  m.sumCols2();
 }
-printTime('reblaze: ', process.hrtime(t));
+printTime('standard: ', process.hrtime(t));
 
 var t = process.hrtime();
 for (var i = 0; i < ITER; i++) {
-  m.sumCols2();
+  m.sumCols();
 }
-printTime('standard:  ', process.hrtime(t));
+printTime('reblaze:  ', process.hrtime(t));
 
 
 
