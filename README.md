@@ -7,10 +7,12 @@
 |_|  \___|_.__/|_|\__,_/___\___|
 ```
 
-A crazy way of template-izing your JS so it can be generated on the fly.
+A crazy way of template-izing your JS `Functions` and `Generators` so it can be
+generated on the fly.
 
-This should be used for methods that are instantiated once then used many times,
-since currently the function generation does take quite a bit of time to do.
+This should be used for methods that are instantiated once then used many
+times, since currently the function generation does take quite a bit of time to
+do.
 
 Let's show a simple example then allow you to go experiment. (note this uses
 the latest v0.12 `'smalloc'` API)

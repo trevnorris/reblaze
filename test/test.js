@@ -65,6 +65,12 @@ assert_eq(fn.toString(), 'function replace5(foo) {return foo.bar;}');
 assert_eq(fn({ bar: 13 }), 13);
 
 
+// Test generator support
+function* replace6(foo) { }
+var fn = reblaze({ }, replace6);
+assert_eq(typeof fn().next, 'function');
+
+
 
 
 
