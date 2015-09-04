@@ -1,6 +1,6 @@
 {
   "name" : "reblaze",
-  "version" : "0.2.0",
+  "version" : "0.2.1",
   "description" : "Rewrite JavaScript on the fly",
   "homepage" : "http://github.com/trevnorris/reblaze",
   "main" : "./lib/core.js",
