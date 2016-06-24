@@ -14,14 +14,12 @@ This should be used for methods that are instantiated once then used many
 times, since currently the function generation does take quite a bit of time to
 do.
 
-Let's show a simple example then allow you to go experiment. (note this uses
-the latest v0.12 `'smalloc'` API)
+Let's show a simple example then allow you to go experiment.
 
 ```javascript
-var smalloc = require('smalloc');
-var alloc = smalloc.alloc;
-var reblaze = require('reblaze');
+'use strict';
 
+const reblaze = require('reblaze');
 
 function Matrix(rows, cols) {
   this._rows = rows >>> 0;
@@ -29,33 +27,30 @@ function Matrix(rows, cols) {
   // Replace template entries with fields in passed object.
   this.sumCols = reblaze({ COLS: this._cols, ROWS: this._rows }, sumCols);
 
-  alloc(this._rows * this._cols, this, smalloc.Types.Uint32);
+  this._data = new Uint32Array(this._rows * this._cols);
 }
 
 // This will look funky due to the template convention.
 function sumCols() {
-  var sum = [];
-  for (var i = 0; i < ((COLS)); i++) {
-    sum[i] = 0;
-  }
+  const data = this._data;
+  // Sum of values may exceed a uint32
+  const sum = new Float64Array(((COLS)));
   for (var i = 0; i < ((COLS)) * ((ROWS)); i++) {
-    sum[i % ((COLS))] += this[i];
+    sum[i % ((COLS))] += data[i];
   }
   return sum;
 }
 
-
-var m = new Matrix(11, 7);
+// Build a new Matrix instance with custom sumCols().
+const m = new Matrix(11, 7);
 ```
 
 Now `sumCols` on the instance `m`:
 
 ```javascript
 function sumCols() {
-  var sum = [];
-  for (var i = 0; i < 7; i++) {
-    sum[i] = 0;
-  }
+  const data = this._data;
+  const sum = new Float64Array(7);
   for (var i = 0; i < 7 * 11; i++) {
     sum[i % 7] += this[i];
   }
