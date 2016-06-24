@@ -7,7 +7,6 @@ var reblaze = require('../lib/core.js');
 function replace0() {
   return ((A)) + ((B)) + ((C)) + ((A));
 }
-
 var fn = reblaze({ A: 5, B: 7, C: 11 }, replace0);
 assert_eq(fn.toString(), 'function replace0() {return 5 + 7 + 11 + 5;}');
 assert_eq(fn(), 28);
@@ -17,7 +16,6 @@ assert_eq(fn(), 28);
 function replace1(foo, bar) {
   return foo + bar + ((BAZ));
 }
-
 var fn = reblaze({ BAZ: 1 }, replace1);
 assert_eq(fn.toString(), 'function replace1(foo, bar) {return foo + bar + 1;}');
 assert_eq(fn(2, 3), 6);
@@ -27,7 +25,6 @@ assert_eq(fn(2, 3), 6);
 function replace2(foo) {
   return foo[((BAR))];
 }
-
 var fn = reblaze({ BAR: 'bar' }, replace2);
 assert_eq(fn.toString(), 'function replace2(foo) {return foo.bar;}');
 assert_eq(fn({ bar: 42 }), 42);
@@ -37,7 +34,6 @@ assert_eq(fn({ bar: 42 }), 42);
 function replace3(foo) {
   return foo[((BAR))] + foo[((BAR))];
 }
-
 var fn = reblaze({ BAR: 'bar' }, replace3);
 assert_eq(fn.toString(), 'function replace3(foo) {return foo.bar + foo.bar;}');
 assert_eq(fn({ bar: 13 }), 26);
@@ -47,7 +43,6 @@ assert_eq(fn({ bar: 13 }), 26);
 function replace4(foo) {
   return foo[((BAR))] + ((BAZ));
 }
-
 var fn = reblaze({ BAR: 'bar', BAZ: 3 }, replace4);
 assert_eq(fn.toString(), 'function replace4(foo) {return foo.bar + 3;}');
 assert_eq(fn({ bar: 7 }), 10);
@@ -59,7 +54,6 @@ function replace5(foo) {
   return foo
       [((BAR))];
 }
-
 var fn = reblaze({ BAR: 'bar' }, replace5);
 assert_eq(fn.toString(), 'function replace5(foo) {return foo.bar;}');
 assert_eq(fn({ bar: 13 }), 13);
