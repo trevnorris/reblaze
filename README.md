@@ -7,12 +7,23 @@
 |_|  \___|_.__/|_|\__,_/___\___|
 ```
 
-A crazy way of template-izing your JS `Functions` and `Generators` so it can be
-generated on the fly.
+A crazy way of template-izing your JS `Function`s and `Generator`s so they can
+be generated on the fly.
 
 This should be used for methods that are instantiated once then used many
 times, since currently the function generation does take quite a bit of time to
 do.
+
+### API
+
+#### `reblaze(values[, name], fn)`
+
+* `values` {Object}
+* `name` {String} Default `''`
+* `fn` {Function}
+* Returns new Function
+
+### Examples
 
 Let's show a simple example then allow you to go experiment.
 
@@ -65,13 +76,32 @@ function runMe(foo) {
   return foo[((BAR))];
 }
 
-var fn = reblaze({ BAR: 'bar' }, runMe);
+const fn = reblaze({ BAR: 'bar' }, runMe);
 ```
 
 And the output for the new `fn` instance:
 
 ```javascript
 function runMe(foo) {
+  return foo.bar;
+}
+```
+
+The name of the function can also be replaced by passing a second optional
+argument.
+
+```javascript
+function replaceMe(foo) {
+  return foo[((BAR))];
+}
+
+const fn = reblaze({ BAR: 'bar' }, 'wereReplaced', replaceMe);
+```
+
+Will generate the following function:
+
+```javascript
+function wereReplaced(foo) {
   return foo.bar;
 }
 ```

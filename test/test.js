@@ -65,6 +65,13 @@ var fn = reblaze({ }, replace6);
 assert_eq(typeof fn().next, 'function');
 
 
+// Test renaming a named function.
+function replace7(foo) {
+  return foo[((BAR))];
+}
+var fn = reblaze({ BAR: 'bar' }, 'replaced', replace7);
+assert_eq(fn.toString(), 'function replaced(foo) {return foo.bar;}');
+
 
 
 
