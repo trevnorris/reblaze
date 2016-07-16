@@ -106,6 +106,17 @@ function wereReplaced(foo) {
 }
 ```
 
+If you want to have the full `require`, `__filename`, etc. in your function
+pass `module` as an optional third (or second if `name` isn't provided)
+argument.
+
+```javascript
+function foop() {
+  require(__dirname + '/' + ((NAME)));
+}
+reblaze({ NAME: 'mod_name' }, module, foop);
+```
+
 So, give it a whirl and report any bugs. In the future I plan on implementing
 even more meta-ness where `reblaze` can run on itself and return optimized
 instances for a given construction case.

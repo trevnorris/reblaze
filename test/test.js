@@ -1,4 +1,4 @@
-// Just run this file to check all tests.
+'use strict';
 
 var reblaze = require('../lib/core.js');
 var EOL = require('os').EOL;
@@ -83,6 +83,22 @@ assert_eq(fn.toString(),
           'function replaced(foo) {' + EOL + 'return foo.bar;' + EOL + '}');
 
 
+// Test replacing with /
+// TODO(trevnorris): What was this test added for?
+function replace8() {
+  return ((FOO));
+}
+var fn = reblaze({ FOO: '/baz/bam/boom' }, replace8);
+//process._rawDebug(fn.toString());
+
+
+function replace9(foop) {
+  if (foop !== __filename) {
+    throw new Error('foop !== filename');
+  }
+}
+var fn = reblaze({}, module, replace9);
+fn(__filename);
 
 
 function log() {
